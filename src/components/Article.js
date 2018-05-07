@@ -1,9 +1,12 @@
-import React, {Component} from 'react'
+import React, {Component, PureComponent} from 'react'
 import PropTypes from 'prop-types'
 import CommentList from './CommentList'
 import toggleOpen from '../decorators/toggleOpen'
+import {findDOMNode} from 'react-dom'
+import { CSSTransitionGroup } from 'react-transition-group'
+import './article.css'
 
-class Article extends Component {
+class Article extends PureComponent {
 
   static propTypes = {
     article: PropTypes.shape({
@@ -13,6 +16,10 @@ class Article extends Component {
     }).isRequired,
     isOpen: PropTypes.bool,
     toggleOpen: PropTypes.func
+  }
+
+  state = {
+    updateIndex: 0
   }
 
   // componentWillReceiveProps(nextProps) {
@@ -26,23 +33,9 @@ class Article extends Component {
   //   console.log('--', 'mounted')
   // }
 
-  render() {
-    const {article, isOpen, toggleOpen} = this.props
-    return (
-      <div ref = {this.setContainerRef}>
-        <h3>{article.title}</h3>
-        <button onClick = {toggleOpen}>
-          {isOpen ? 'close' : 'open'}
-        </button>
-        {this.getBody()}
-      </div>
-    )
-  }
-
-  setContainerRef = ref => {
-    this.container = ref
-    console.log('--ref-', ref)
-  }
+  // shouldComponentUpdate(nextProps, nextState) {
+  //   return nextProps.isOpen !== this.props.isOpen
+  // }
 
   getBody() {
     const {article, isOpen} = this.props
@@ -53,10 +46,40 @@ class Article extends Component {
       return (
           <section>
             {article.text}
-            <CommentList comments = {article.comments} />
+            <CommentList comments = {article.comments} ref={this.setCommentsRef}/>
           </section>
       )
     }
+  }
+
+  setContainerRef = ref => {
+    this.container = ref
+    console.log('--ref-', ref)
+  }
+
+  setCommentsRef = ref => {
+    // console.log('----', findDOMNode(ref))
+    console.log('----', ref)
+  }
+
+  render() {
+    const {article, isOpen, toggleOpen} = this.props
+    console.log('update');
+    return (
+      <div ref = {this.setContainerRef}>
+        <h3>{article.title}</h3>
+        <button onClick = {toggleOpen}>
+          {isOpen ? 'close' : 'open'}
+        </button>
+          <CSSTransitionGroup
+          transitionName='article'
+          transitionEnterTimeout={300}
+          transitionLeaveTimeout={500}
+          component = 'div'>
+            {this.getBody()}
+          </CSSTransitionGroup>
+      </div>
+    )
   }
 
 }

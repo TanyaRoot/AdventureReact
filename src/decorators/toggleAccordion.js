@@ -17,6 +17,7 @@ export default (OriginalComponent) => class WrappedCompAccordion extends ReactCo
         return <OriginalComponent
           {...this.props}
           {...this.state}
+          // id = {this.id}
           toggle = {this.toggle} />
     }
 }
