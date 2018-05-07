@@ -4,10 +4,12 @@ import Article from './Article'
 import toggleAccordion from '../decorators/toggleAccordion'
 
 class ArticleList extends Component{
-  
+
   static propTypes = {
     articles: PropTypes.array.isRequired,
-    toggle:PropTypes.func.isRequired
+    articleElements: PropTypes.object,
+    article: PropTypes.object,
+    toggle: PropTypes.func.isRequired
   }
 
   // componentWillReceiveProps(nextProps) {
@@ -22,6 +24,7 @@ class ArticleList extends Component{
 
   render() {
     const{articles, toggle} = this.props
+    // console.log(this.props.id);
     const articleElements = articles.map(article =>
       <li key={article.id}>
         <Article

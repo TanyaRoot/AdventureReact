@@ -6,7 +6,11 @@ import toggleOpen from '../decorators/toggleOpen'
 function CommentList({comments = [], isOpen, toggleOpen}) {
 
   CommentList.propTypes = {
-
+    comments: PropTypes.array.isRequired,
+    text: PropTypes.string,
+    isOpen: PropTypes.bool.isRequired,
+    toggleOpen: PropTypes.func,
+    comment: PropTypes.object
   }
 
   const text = isOpen ? 'close comments' : 'open comments'
