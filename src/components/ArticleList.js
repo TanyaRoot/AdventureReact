@@ -24,7 +24,6 @@ class ArticleList extends Component{
 
   render() {
     const{articles, toggle} = this.props
-    // console.log(this.props.id);
     const articleElements = articles.map(article =>
       <li key={article.id}>
         <Article
