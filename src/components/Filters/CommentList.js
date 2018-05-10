@@ -1,8 +1,8 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import Comment from './Comment'
-import toggleOpen from '../decorators/toggleOpen'
-import CommentAddForm from './CommentAddForm'
+import toggleOpen from '../../decorators/toggleOpen'
+import CommentAddForm from '../CommentAddForm/CommentAddForm'
 
 function CommentList({comments = [], isOpen, toggleOpen}) {
 
