@@ -1,6 +1,6 @@
 import React, {Component, PureComponent} from 'react'
 import PropTypes from 'prop-types'
-import CommentList from '../Filters/CommentList'
+import CommentList from '../CommentList'
 import toggleOpen from '../../decorators/toggleOpen'
 import {findDOMNode} from 'react-dom'
 import { CSSTransitionGroup } from 'react-transition-group'
@@ -54,19 +54,25 @@ class Article extends PureComponent {
     }
   }
 
-  setContainerRef = ref => {
-    this.container = ref
-    console.log('--ref-', ref)
-  }
+  // setContainerRef = ref => {
+  //   this.container = ref
+  //   // console.log('--ref-', ref)
+  // }
+  //
+  // setCommentsRef = ref => {
+  //   // console.log('----', findDOMNode(ref))
+  //   // console.log('----', ref)
+  // }
 
-  setCommentsRef = ref => {
-    // console.log('----', findDOMNode(ref))
-    console.log('----', ref)
+  handleDelete = () => {
+    const {deleteArticle, article} = this.props
+    deleteArticle(article.id)
+    // console.log('wawawaeeasdff');
   }
 
   render() {
     const {article, isOpen, toggleOpen} = this.props
-    console.log('update');
+    // console.log('update');
     return (
       <div ref = {this.setContainerRef}>
         <h3>{article.title}</h3>
@@ -85,11 +91,7 @@ class Article extends PureComponent {
     )
   }
 
-  handleDelete = () => {
-    const {deleteArticle, article} = this.props
-    deleteArticle(article.id)
-    console.log('wawawaeeasdff');
-  }
+
 
 }
 

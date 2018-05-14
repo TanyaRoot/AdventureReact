@@ -1,11 +1,17 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
-
 import Helmet from 'react-helmet'
 import DayPicker, { DateUtils } from 'react-day-picker'
 import 'react-day-picker/lib/style.css'
+import {filterArticle} from '../../AC/index'
+import {connect} from 'react-redux'
 
-export default class Calendar extends React.Component {
+/* когда мы че та тута натыкали
+*  результат того что мы на тыкали должно отправляться в AC
+*  AC должен отправить это в свой reducer, который будет возвращать статьи в стор
+*/
+
+ class Calendar extends React.Component {
   static defaultProps = {
          numberOfMonths: 2,
   }
@@ -23,14 +29,17 @@ export default class Calendar extends React.Component {
   }
   handleDayClick(day) {
     const range = DateUtils.addDayToRange(day, this.state)
+    this.props.filterArticle(range)
     this.setState(range)
   }
   handleResetClick() {
     this.setState(this.getInitialState())
   }
+
   render() {
     const { from, to } = this.state
     const modifiers = { start: from, end: to }
+
     return (
       <div className="RangeExample">
         <p>
@@ -77,3 +86,5 @@ export default class Calendar extends React.Component {
     )
   }
 }
+
+export default connect(null, {filterArticle})(Calendar)

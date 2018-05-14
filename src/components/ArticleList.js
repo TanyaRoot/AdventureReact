@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
-import Article from '../Article/Article'
-import toggleAccordion from '../../decorators/toggleAccordion'
+import Article from './Article/Article'
+import toggleAccordion from '../decorators/toggleAccordion'
 import {connect} from 'react-redux'
 
 class ArticleList extends Component{
@@ -44,5 +44,6 @@ class ArticleList extends Component{
 
 }
 export default connect(state => ({
-  articles: state.articles
+  articles: state.articles,
+  filterArticle: state.filterArticle
 }))(toggleAccordion(ArticleList))

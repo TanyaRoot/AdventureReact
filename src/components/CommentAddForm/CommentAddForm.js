@@ -20,7 +20,7 @@ class CommentAddForm extends Component {
   }
 
   handleChange = type => ev => {
-    console.log(type);
+    // console.log(type);
     const {value} = ev.target
     if (value.length > limits[type].max) return
     this.setState({
@@ -31,8 +31,8 @@ class CommentAddForm extends Component {
   getClassName = type => this.state[type].length && this.state[type].length < limits[type].min ? 'form-input__error' : '';
 
   render() {
-    console.log('11', this.getClassName('user'));
-    console.log(this.getClassName('text'));
+    // console.log('11', this.getClassName('user'));
+    // console.log(this.getClassName('text'));
     return(
       <form onSubmit = {this.handleSubmit}>
         user: <input value = {this.state.user}
